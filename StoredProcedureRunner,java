@@ -29,7 +29,7 @@ public class StoredProcedureRunner implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		MyRandomStoredProcedure sproc = new MyRandomStoredProcedure(dataSource);
-		Map results = sproc.execute("sp23jlg103");
+		Map results = sproc.execute("123");
 		System.out.println("map: " + results);
 //		printMap(results);
 	}
@@ -43,12 +43,12 @@ public class StoredProcedureRunner implements CommandLineRunner {
 }
 
 class MyRandomStoredProcedure extends StoredProcedure {
-	private static final String SPROC_NAME = "fe_random_sp";
+	private static final String SPROC_NAME = "random_sp";
 
 	public MyRandomStoredProcedure(DataSource dataSource) {
 		super(dataSource, SPROC_NAME);
 		declareParameter(new SqlParameter("device_id_in", OracleTypes.VARCHAR));
-		declareParameter(new SqlOutParameter("output", OracleTypes.STRUCT, "FE_RANDOM_SP_TYPE", new SqlReturnType() {
+		declareParameter(new SqlOutParameter("output", OracleTypes.STRUCT, "RANDOM_SP_TYPE", new SqlReturnType() {
 			public Object getTypeValue(CallableStatement cs, int colIndx, int sqlType, String typeName)
 					throws SQLException {
 				STRUCT struct = (STRUCT) cs.getObject(colIndx);
